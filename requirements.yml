@@ -1,0 +1,15 @@
+# Install a role from the Ansible Galaxy
+
+- name: brianshumate.consul
+  src: https://github.com/brianshumate/ansible-consul.git
+
+- name: brianshumate.vault
+  src: https://github.com/brianshumate/ansible-vault.git
+
+- name: ansible-hashi-base
+  src: git+https://bitbucket.org/richie_rnkoaa/ansible-hashi-base
+
+- name: brianshumate.nomad
+  src: git+https://github.com/rnkoaa/ansible-nomad.git
+
+

@@ -1,0 +1,55 @@
+version: '2'
+
+tasks:
+  default:
+    desc: Default task to provision all hashi-stack with secure certs
+    silent: true
+    cmds:
+      - echo "Running Default Task"
+  provision-servers:
+    desc: Provision the hashi-stack servers
+    silent: true
+    cmds:
+      - echo "Provisioning the servers"
+  secure-servers:
+    desc: Secure the servers by locking down ssh and blocking accesses using ufw
+    silent: true
+    cmds:
+      - echo "securing the servers"
+  create-deploy-user:
+    desc: Creates a deploy user with public key that has access to the system to deploy applications
+    silent: true
+    cmds:
+      - echo "Creating ssh keys for deploy user"
+      - echo "creating user and add public key as authorized on the servers"
+
+  provision-consul:
+    desc: provisions consul servers using ansible roles and enables security through ssl certs
+    silent: true
+    cmds:
+      - echo "provisioning consul"
+
+  provision-consul-clients:
+    desc: provisions consul clients on instances which will host applications
+    silent: true
+    cmds:
+      - echo "provisioning consul client instances"
+
+  provision-vault:
+    desc: provisions vault servers using ansible roles and enables security through ssl certs
+    silent: true
+    cmds: 
+      - echo "provisioning vault"
+
+  provision-nomad:
+    desc: Provisions nomad server instances
+    silent: true
+    cmds: 
+      -  echo "provisioning nomad"
+
+  provision-nomad-clients:
+    silent: true
+    desc: Provisions instances that are nomad clients which will connect to nomad servers
+    cmds:
+      - echo "provisioning nomad clients"
+

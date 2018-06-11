@@ -1,0 +1,7 @@
+PROJECT_NAME: hashi-stack
+ENVIRONMENT: vagrant
+PLAYBOOKS: playbooks
+INVENTORY:  "inventories/{{.ENVIRONMENT}}"
+DEV_MODE: vagrant
+NOMAD_VAULT_TOKEN: ""
+# GIT_COMMIT: {sh: git log -n 1 --format=%h}

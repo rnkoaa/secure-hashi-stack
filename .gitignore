@@ -1,0 +1,25 @@
+.ssh
+.vagrant
+roles/
+roles/ansible-hashi-base
+roles/brianshumate.consul
+roles/brianshumate.vault
+roles/brianshumate.nomad
+
+**/node_modules/
+**/dist/
+**/bin/
+**/target/
+
+**/.idea/
+**/*.iml
+
+# playbooks/vagrant/files/certs
+
+# inventories/bitbucket.txt
+# inventories/consul-ssl.txt
+# inventories/consul-template.sh.txt
+# inventories/nomad.txt
+# inventories/vault-init
+
+    

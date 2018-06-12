@@ -1,0 +1,28 @@
+---
+# first disable ipv6
+- name: disable ipv6 for ufw
+  # /etc/default/ufw
+  lineinfile: dest=/etc/default/ufw
+              regexp="^IPV6"
+              line="IPV6=no"
+              state=present
+  notify: restart ufw
+- name: Setup ufw
+  ufw: 
+    state: enabled
+    policy: allow
+
+- name: Setup ufw logging
+  ufw: 
+    logging: on
+
+- name: Allow ssh traffic
+  ufw: 
+    rule: allow 
+    port: "{{ ubuntu_common_ssh_port }}" 
+    proto: tcp
+    
+- name: disallow all other ports ufw
+  ufw: 
+    state: enabled
+    policy: deny

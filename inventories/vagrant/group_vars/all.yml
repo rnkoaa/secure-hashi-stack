@@ -1,0 +1,38 @@
+---
+ansible_python_interpreter: /usr/bin/python3
+
+all_nodes:
+  - { ip: "192.168.33.10", name: "vagrant-hashi-stack-1", fqdn: "vagrant-hashi-stack-1.alpha.consul" }
+  - { ip: "192.168.33.11", name: "vagrant-hashi-stack-2", fqdn: "vagrant-hashi-stack-2.alpha.consul" }
+  - { ip: "192.168.33.12", name: "vagrant-hashi-stack-3", fqdn: "vagrant-hashi-stack-3.alpha.consul" }
+
+basic_apps:
+  - curl
+  - mtr-tiny
+  - bridge-utils
+  - socat
+  - jq
+  - dnsutils
+  - build-essential
+  - ntp
+  - acl
+  - htop
+  - curl
+  - httpie
+  - vim
+  - wget
+  - dirmngr
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+  - libpq-dev
+  - python-dev
+  - python-pip
+  - python-pycurl
+  - supervisor
+  - unzip
+  - openssl
+  - libssl-dev
+  - libssl-doc
+
+default_timezone: America/Chicago

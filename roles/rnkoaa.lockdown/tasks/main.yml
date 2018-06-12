@@ -1,0 +1,29 @@
+---
+# tasks file for rnkoaa.lockdown
+- name: Install required packages
+  apt: state=present pkg={{ item }}
+  with_items: "{{ubuntu_common_required_packages}}"
+
+- name: Install optional packages
+  apt: state=present pkg={{ item }}
+  with_items: "{{ubuntu_common_optional_packages}}"
+
+- name: Adjust APT update intervals
+  copy: src=apt_periodic dest=/etc/apt/apt.conf.d/10periodic
+
+# configure ufw
+- import_tasks: ufw.yml
+
+# - name: Change ssh port
+#   lineinfile: dest=/etc/ssh/sshd_config
+#               regexp="^Port\s"
+#               line="Port {{ ubuntu_common_ssh_port }}"
+#               state=present
+#   notify: Restart ssh
+
+# - name: Disallow root SSH access
+#   lineinfile: dest=/etc/ssh/sshd_config
+#               regexp="^PermitRootLogin"
+#               line="PermitRootLogin no"
+#               state=present
+#   notify: Restart ssh

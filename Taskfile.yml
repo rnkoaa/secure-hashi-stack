@@ -1,11 +1,31 @@
 version: '2'
 
 tasks:
+  start-instances:
+    cmds:
+      - vagrant up
+      
+  ansible-test:
+    desc: Run this to test if instances are up and can be contacted.
+    cmds:
+      - ansible -i "{{.INVENTORY}}" all -m ping
+  initialize-server:
+    desc: Initializes the server, installs, apps, locks server down
+    silent: true
+    cmds:
+      - Echo Initializing the Server
+      - ansible-playbook -i "{{.INVENTORY}}" "{{.PLAYBOOKS}}/{{.ENVIRONMENT}}/initialize_servers.yml"
+  # vault-test:
+  #   desc: Run a test to check if the vault vars can be read.
+  #   cmds:
+  #     - ansible-playbook -i "{{.INVENTORY}}" --vault-id @prompt playbooks/vagrant/vault_test.yml
+
   default:
     desc: Default task to provision all hashi-stack with secure certs
     silent: true
     cmds:
       - echo "Running Default Task"
+
   provision-servers:
     desc: Provision the hashi-stack servers
     silent: true

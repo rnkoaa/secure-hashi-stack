@@ -1,0 +1,16 @@
+---
+# tasks file for rnkoaa.ssh
+- name: Remove Root SSH Configuration
+  file: path=/root/.ssh state=absent
+  sudo: yes
+
+# Example from Ansible Playbooks
+- template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  sudo: yes
+  notify: 
+    - restart sshd

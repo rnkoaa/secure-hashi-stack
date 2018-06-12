@@ -1,0 +1,14 @@
+---
+# defaults file for rnkoaa.lockdown
+ubuntu_common_ssh_port: 22
+ubuntu_common_required_packages:
+  - ufw
+  - fail2ban
+  - unattended-upgrades
+  # - logwatch
+
+ubuntu_common_optional_packages:
+  # - mosh
+  - vim
+  - zsh
+  - curl

@@ -1,6 +1,6 @@
 .ssh
 .vagrant
-roles/
+# roles/
 roles/ansible-hashi-base
 roles/brianshumate.consul
 roles/brianshumate.vault

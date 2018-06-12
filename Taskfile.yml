@@ -15,6 +15,14 @@ tasks:
     cmds:
       - Echo Initializing the Server
       - ansible-playbook -i "{{.INVENTORY}}" "{{.PLAYBOOKS}}/{{.ENVIRONMENT}}/initialize_servers.yml"
+  
+  assemble-consul:
+    desc: Initializes the server, installs, apps, locks server down
+    silent: true
+    cmds:
+      - Echo Initializing the Server
+      - ansible-playbook -i "{{.INVENTORY}}" "{{.PLAYBOOKS}}/{{.ENVIRONMENT}}/consul.yml"
+  
   # vault-test:
   #   desc: Run a test to check if the vault vars can be read.
   #   cmds:

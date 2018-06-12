@@ -1,0 +1,29 @@
+---
+# File: consul.yml - Example Consul site playbook
+
+- name: Assemble Consul cluster
+  hosts: consul_instances
+  any_errors_fatal: true
+  become: yes
+
+  pre_tasks:
+    - name: Open consul ports so that the servers can communicate
+      ufw: 
+        rule: allow 
+        port: "{{ item.port }}" 
+        proto: "{{ item.proto }}"
+        # src: 
+        state: enabled
+      with_items:
+        - {port: 8500, proto: "tcp"}
+        - {port: 8501, proto: "tcp"}
+        - {port: 8600, proto: "tcp"}
+        - {port: 8600, proto: "udp"}
+        - {port: 8300, proto: "tcp"}
+        - {port: 8301, proto: "tcp"}
+        - {port: 8301, proto: "udp"}
+        - {port: 8302, proto: "tcp"}
+        - {port: 8302, proto: "udp"}
+
+  roles:
+    - role: brianshumate.consul

@@ -21,7 +21,11 @@ tasks:
     silent: true
     cmds:
       - Echo Initializing the Server
-      - ansible-playbook -i "{{.INVENTORY}}" "{{.PLAYBOOKS}}/{{.ENVIRONMENT}}/consul.yml"
+      - |
+        ansible-playbook -i "{{.INVENTORY}}" \
+        --vault-id @prompt \
+        "{{.PLAYBOOKS}}/{{.ENVIRONMENT}}/consul.yml"
+        
   
   # vault-test:
   #   desc: Run a test to check if the vault vars can be read.

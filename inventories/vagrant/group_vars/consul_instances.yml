@@ -2,7 +2,11 @@
 # consul_advertise_addr:      "{{ hostvars[inventory_hostname].consul_advertise_address }}"
 consul_datacenter:                  alpha
 consul_iface:                       eth1
-consul_bind_address:                "{{ hostvars[inventory_hostname].consul_advertise_address }}"
+consul_manage_user:                 false
+consul_manage_group:                false
+consul_user:                        consul
+consul_group:                       consul
+# consul_bind_address:                "{{ hostvars[inventory_hostname].consul_advertise_address }}"
 # put this key in ansible-vault and lookup
 consul_raw_key:                 ""
 consul_bootstrap_expect:            3
@@ -16,20 +20,21 @@ validate_certs:                     true
 ansible_python_interpreter:         /usr/bin/python3
 
 # tls config
-# consul_tls_enable:                  true
+consul_tls_enable:                  true
 consul_dnsmasq_enable:              true
-# consul_tls_verify_incoming:         true
-# consul_tls_verify_outgoing:         true
-# consul_tls_verify_server_hostname:  true
-# consul_tls_dir:                     /etc/ssl/certs
-# consul_tls_ca_crt:                  cacert.pem
-# consul_tls_server_crt:              vagrant-hashi-stack.cert
-# consul_server_key:                  vagrant-hashi-stack.key
+consul_tls_verify_incoming:         true
+consul_tls_verify_outgoing:         true
+
+# using common tls cert. Each server does not have its own cert
+consul_tls_verify_server_hostname:  false
+consul_tls_dir:                     /etc/ssl/consul
+consul_tls_ca_crt:                  cacert.pem
+consul_tls_server_crt:              consul_server_cert.pem
+consul_server_key:                  consul_server_cert_key.pem
 
 consul_tls_copy_keys:               false
-consul_ports_http:                  8500
-# consul_ports_http:                  8501
-# consul_ports_https:                 8500
+consul_ports_https:                  8500
+consul_ports_http:                  8501
 
 # consul_domain:                      consul.local
 

@@ -37,6 +37,17 @@ tasks:
         "{{.PLAYBOOKS}}/{{.ENVIRONMENT}}/nomad.yml"
         
   
+  assemble-vault:
+    desc: Initializes the server, installs, apps, locks server down
+    silent: true
+    cmds:
+      - Echo Initializing Nomad the Server cluster
+      - |
+        ansible-playbook -i "{{.INVENTORY}}" \
+        --vault-id @prompt \
+        "{{.PLAYBOOKS}}/{{.ENVIRONMENT}}/vault.yml"
+        
+  
   # vault-test:
   #   desc: Run a test to check if the vault vars can be read.
   #   cmds:

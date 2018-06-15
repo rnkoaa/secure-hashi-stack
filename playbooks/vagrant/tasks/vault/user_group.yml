@@ -1,0 +1,16 @@
+---
+# File: user_group.yml - User and group settings
+
+# Add group
+- name: Add Vault group
+  group:
+    name: "{{ vault_group }}"
+    state: present
+
+# Add user
+- name: Add Vault user
+  user:
+    name: "{{ vault_user }}"
+    comment: "Vault user"
+    group: "{{ vault_group }}"
+    system: yes

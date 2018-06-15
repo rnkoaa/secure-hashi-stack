@@ -1,0 +1,23 @@
+---
+# File: vault.yml - Example Vault site playbook
+
+- name: Assemble Vault cluster
+  hosts: vault_instances
+  vars_files:
+    - secrets/ca.yml
+    - secrets/vault_secrets.yml
+
+  any_errors_fatal: true
+  become: yes
+
+  pre_tasks:
+    - import_tasks: tasks/vault/user_group.yml
+
+    - import_tasks: tasks/vault/ufw_rules.yml
+
+    - import_tasks: tasks/vault/certs.yml
+
+    - import_tasks: tasks/vault/env_vars.yml
+
+  roles:
+    - role: brianshumate.vault

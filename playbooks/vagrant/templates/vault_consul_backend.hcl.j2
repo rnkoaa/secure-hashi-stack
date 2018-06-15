@@ -1,0 +1,21 @@
+{% set _vault_plus_one_port = vault_port | int + 1 -%}
+
+backend "consul" {
+  address = "{{ vault_consul }}"
+  datacenter = "{{ vault_datacenter }}"
+  path = "{{ vault_consul_path }}"
+  service = "{{ vault_consul_service }}"
+  {% if not vault_tls_disable | bool %}
+  scheme = "{{ vault_consul_protocol }}"
+  tls_skip_verify = "{{ vault_tls_skip_verify | int }}"
+  tls_key_file = "{{ vault_consul_tls_key_file_dest }}"
+  tls_cert_file = "{{ vault_consul_tls_cert_file_dest }}"
+  tls_ca_file = "{{ vault_consul_tls_ca_file_dest }}"
+  {% endif %}
+  cluster_addr = "{{vault_protocol}}://{{ vault_cluster_address }}:{{ _vault_plus_one_port }}"
+  redirect_addr = "{{vault_protocol}}://{{ vault_redirect_addr }}:{{ vault_port }}"
+  disable_clustering = "{{ vault_cluster_disable }}"
+  {% if vault_consul_token is defined and vault_consul_token %}
+    token = "{{ vault_consul_token }}"
+  {% endif %}
+}

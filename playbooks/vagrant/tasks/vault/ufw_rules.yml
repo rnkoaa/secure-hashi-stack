@@ -1,0 +1,11 @@
+---
+- name: Open nomad ports so that the servers can communicate
+  ufw: 
+    rule: allow 
+    port: "{{ item.port }}" 
+    proto: "{{ item.proto }}"
+    # src: 
+    state: enabled
+  with_items:
+    - {port: 8200, proto: "tcp"}
+    

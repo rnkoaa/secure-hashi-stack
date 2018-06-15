@@ -1,0 +1,81 @@
+---
+# File: consul_certs.yml - copy and generate Vault certs for tls/ssl
+- name: "Ensure Vault ssl folder is present"
+  file:
+    name: "{{ vault_tls_dir }}"
+    state: directory
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+  become: yes
+
+- name: "place Vault bundled ca cert file on servers"
+  copy:
+    dest: "{{ vault_tls_dir }}/cacert.pem"
+    content: "{{ bundle_ca }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place vault cert key file on servers"
+  copy:
+    dest: "{{ vault_tls_dir }}/{{inventory_hostname_short}}-vault-server-key.pem"
+    content: "{{ vault_server_cert_key }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place Vault server cert file on each server"
+  copy:
+    dest: "{{ vault_tls_dir }}/{{inventory_hostname_short}}-vault-server.pem"
+    content: "{{ vault_server_cert }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0644
+  no_log: false
+
+### place the consul cli client certs
+- name: "Ensure consul cli client ssl folder is present"
+  file:
+    name: "{{ vault_tls_dir }}/clients/cli"
+    state: directory
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+  become: yes
+
+- name: "place Vault server cert file on each server"
+  copy:
+    dest: "{{ vault_tls_dir }}/clients/cli/vault-cli-client-cert.pem"
+    content: "{{ vault_cli_client_cert }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place Vault cli client cert key file on servers"
+  copy:
+    dest: "{{ vault_tls_dir }}/clients/cli/vault-cli-client-cert-key.pem"
+    content: "{{ vault_cli_client_cert_key }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place Vault server cert key file on each server"
+  copy:
+    dest: "{{ vault_tls_dir }}/consul-vault-client-cert-key.pem"
+    content: "{{ consul_vault_client_cert_key }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place Vault server cert file on each server"
+  copy:
+    dest: "{{ vault_tls_dir }}/consul-vault-client-cert.pem"
+    content: "{{ consul_vault_client_cert }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0644
+  no_log: false

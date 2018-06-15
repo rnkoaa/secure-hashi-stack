@@ -1,0 +1,120 @@
+---
+vault_datacenter:                               alpha
+vault_config_path:                              /etc/vault
+vault_cluster_name:                             "{{ vault_datacenter }}"
+vault_syslog_enable:                             true
+# vault_address:                                  "{{ inventory_hostname_short }}.alpha.consul"
+vault_address:                                  0.0.0.0
+vault_redirect_addr:                            "{{ inventory_hostname_short }}.alpha.consul"
+vault_cluster_address:                          0.0.0.0
+vault_iface:                                    eth1
+vault_node_name:                                "{{ inventory_hostname_short }}"
+vault_group_name:                               vault_instances
+vault_user:                                     vault
+vault_group:                                    vault
+# vault_tls_disable:                              1
+# vault_tls_config_path:                          "{{vault_config_path }}/vault.d/tls"
+# vault_consul_tls_cert_file:                     ../../../playbooks/vagrant/files/certs/vagrant-hashi-stack.cert
+# vault_tls_cert_file:                            ../../../playbooks/vagrant/files/certs/vault-combined.cert
+# vault_tls_key_file:                             ../../../playbooks/vagrant/files/certs/vagrant-hashi-stack.key
+# vault_tls_cert_file_dest:                       "{{ vault_tls_config_path }}/vault.cert"
+# vault_tls_key_file_dest:                        "{{ vault_tls_config_path }}/vault.key"
+# vault_tls_src_files:                            ../../../config/tls/certs/
+
+# vault_consul_protocol:                          https
+# vault_consul_protocol:                          https
+# vault_consul_tls_cert_file_dest:                /etc/ssl/certs/vagrant-hashi-stack.cert
+# nomad_advertise_addr:      "{{ hostvars[inventory_hostname].nomad_advertise_address }}"
+# vault_consul:                     "{{ inventory_hostname_short }}.alpha.consul:8500"
+# vault_consul_scheme:              https
+# vault_datacenter:                  alpha
+# vault_cluster_name:                alpha
+# vault_region:                       global
+# vault_iface:                       eth1
+# vault_network_interface:                       eth1
+# vault_client_network_interface:   "eth1"
+# vault_bind_address:               "0.0.0.0"
+# vault_group_name:                 vault_instances
+# vault_advertise_addr: "{{ inventory_hostname_short }}.alpha.consul"
+# vault_manage_user:                 no
+# vault_manage_group:                no
+# vault_user:                        vault
+# vault_group:                       vault
+# vault_docker_enable:               false
+# vault_bind_address:                "{{ hostvars[inventory_hostname].vault_advertise_address }}"
+# put this key in ansible-vault and lookup
+# vault_raw_key:                 ""
+# vault_bootstrap_expect:            3
+# vault_version:                     0.8.3
+
+# # allow for external ui access
+# vault_client_address:              0.0.0.0
+# vault_syslog_enable:               false
+# vault_node_name:                   "{{ inventory_hostname_short }}"
+# validate_certs:                     false
+# ansible_python_interpreter:         /usr/bin/python3
+
+# tls config
+# vault_tls_enable:                  true
+# vault_dnsmasq_enable:              true
+# vault_tls_verify_incoming:         true
+# vault_tls_verify_outgoing:         true
+
+# using common tls cert. Each server does not have its own cert
+# vault_tls_verify_server_hostname:  false
+# vault_tls_dir:                     /etc/ssl/nomad
+# vault_tls_ca_crt:                  cacert.pem
+
+# # define the name of the cert to give to ansible
+# vault_tls_server_crt:             "{{ inventory_hostname_short }}-nomad-server.pem"
+# vault_server_key:                 "{{ inventory_hostname_short }}-nomad-server-key.pem"
+# # vault_tls_server_crt:              vault_server_cert.pem
+# # vault_server_key:                  vault_server_host_cert_key.pem
+
+# vault_tls_copy_keys:                false
+# vault_port:                         8200
+
+# vault_config_custom:
+#   consul:
+#     address:                "{{ inventory_hostname_short }}.alpha.consul:8500"
+#     # address:                "vagrant-hashi-stack-1.alpha.consul:8500"
+#     ssl       :             true
+#     ca_file   :             /etc/ssl/nomad/cacert.pem
+#     cert_file :             "{{ vault_tls_dir }}/consul-nomad-client-cert.pem"
+#     key_file  :             "{{ vault_tls_dir }}/consul-nomad-client-cert-key.pem"
+#     server_service_name:    nomad
+#     client_service_name:    nomad-client
+#     auto_advertise      :   true
+#     server_auto_join    :   true
+#     client_auto_join    :   true
+
+# vault_domain:                      nomad.local
+
+# relative to roles/brianshumate.nomad/tasks/
+# vault_tls_src_files:               "../../../config/tls/certs"
+# vault_recursors:
+#   - 8.8.8.8
+#   - 8.8.4.4
+
+# vault_acl_enable:                  true
+# vault_acl_datacenter:              alpha
+# vault_acl_down_policy:             allow
+# vault_acl_default_policy:          allow
+# vault_acl_master_token:            fc7e1293-b087-494a-b26f-318c6d79ef32
+
+vault_consul:                                   "{{ inventory_hostname_short }}.alpha.consul:8501"
+vault_consul_path:                              vault
+vault_consul_service:                           vault
+vault_consul_protocol:                          https
+
+
+vault_tls_dir:                                  /etc/ssl/vault
+vault_tls_config_path:                          /etc/ssl/vault
+vault_tls_disable:                              0
+vault_tls_ca_crt:                               cacert.pem
+vault_tls_cert_file:                            "{{ inventory_hostname_short }}-vault-server.pem"
+vault_tls_key_file:                             "{{ inventory_hostname_short }}-vault-server-key.pem"
+vault_tls_cert_file_dest:                       "{{ vault_tls_config_path }}/{{vault_tls_cert_file}}"
+vault_tls_key_file_dest:                        "{{ vault_tls_config_path }}/{{vault_tls_key_file}}"
+vault_consul_tls_ca_file_dest:                  "{{ vault_tls_config_path }}/{{ vault_tls_ca_crt }}"
+validate_certs_during_api_reachable_check:      true

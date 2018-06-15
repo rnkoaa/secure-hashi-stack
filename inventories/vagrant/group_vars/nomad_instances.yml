@@ -55,7 +55,7 @@ nomad_config_custom:
     address:                "{{ inventory_hostname_short }}.alpha.consul:8500"
     # address:                "vagrant-hashi-stack-1.alpha.consul:8500"
     ssl       :             true
-    ca_file   :             /etc/ssl/nomad/cacert.pem
+    ca_file   :             "{{ nomad_tls_dir }}/cacert.pem"
     cert_file :             "{{ nomad_tls_dir }}/consul-nomad-client-cert.pem"
     key_file  :             "{{ nomad_tls_dir }}/consul-nomad-client-cert-key.pem"
     server_service_name:    nomad
@@ -76,4 +76,4 @@ nomad_config_custom:
 # nomad_acl_datacenter:              alpha
 # nomad_acl_down_policy:             allow
 # nomad_acl_default_policy:          allow
-# nomad_acl_master_token:            fc7e1293-b087-494a-b26f-318c6d79ef32
+# nomad_acl_master_token:            

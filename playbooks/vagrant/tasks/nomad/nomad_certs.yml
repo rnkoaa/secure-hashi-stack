@@ -44,9 +44,19 @@
     mode: 0644
   no_log: false
 
+# /nomad/clients/cli
+### place the nomad cli client certs
+- name: "Ensure nomad cli client ssl folder is present"
+  file:
+    name: "{{ nomad_tls_dir }}/clients/cli"
+    state: directory
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+  become: yes
+
 - name: "place nomad cert key file on servers"
   copy:
-    dest: "{{ nomad_tls_dir }}/nomad-cli-client-cert-key.pem"
+    dest: "{{ nomad_tls_dir }}/clients/cli/nomad-cli-client-cert-key.pem"
     content: "{{ nomad_cli_client_key }}"
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
@@ -55,7 +65,7 @@
 
 - name: "place nomad server cert file on each server"
   copy:
-    dest: "{{ nomad_tls_dir }}/nomad-cli-client-cert.pem"
+    dest: "{{ nomad_tls_dir }}/clients/cli/nomad-cli-client-cert.pem"
     content: "{{ nomad_cli_client_cert }}"
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"

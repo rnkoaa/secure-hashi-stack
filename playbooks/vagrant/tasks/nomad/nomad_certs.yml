@@ -1,0 +1,81 @@
+---
+# File: consul_certs.yml - copy and generate nomad certs for tls/ssl
+- name: "Ensure nomad ssl folder is present"
+  file:
+    name: "{{ nomad_tls_dir }}"
+    state: directory
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+  become: yes
+
+- name: "place nomad cert file on servers"
+  copy:
+    dest: "{{ nomad_tls_dir }}/intermediate_ca_key.pem"
+    content: "{{ intermediate_ca_key }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place nomad bundled ca cert file on servers"
+  copy:
+    dest: "{{ nomad_tls_dir }}/cacert.pem"
+    content: "{{ bundle_ca }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place nomad cert key file on servers"
+  copy:
+    dest: "{{ nomad_tls_dir }}/{{inventory_hostname_short}}-nomad-server-key.pem"
+    content: "{{ nomad_server_host_cert_key }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place nomad server cert file on each server"
+  copy:
+    dest: "{{ nomad_tls_dir }}/{{inventory_hostname_short}}-nomad-server.pem"
+    content: "{{ nomad_server_host_cert }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place nomad cert key file on servers"
+  copy:
+    dest: "{{ nomad_tls_dir }}/nomad-cli-client-cert-key.pem"
+    content: "{{ nomad_cli_client_key }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place nomad server cert file on each server"
+  copy:
+    dest: "{{ nomad_tls_dir }}/nomad-cli-client-cert.pem"
+    content: "{{ nomad_cli_client_cert }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place consul nomad client cert key file on servers"
+  copy:
+    dest: "{{ nomad_tls_dir }}/consul-nomad-client-cert-key.pem"
+    content: "{{ consul_nomad_client_cert_key }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place nomad server cert file on each server"
+  copy:
+    dest: "{{ nomad_tls_dir }}/consul-nomad-client-cert.pem"
+    content: "{{ consul_nomad_client_cert }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0644
+  no_log: false

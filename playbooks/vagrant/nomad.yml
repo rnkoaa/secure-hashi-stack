@@ -1,0 +1,24 @@
+---
+# File: nomad.yml - Example Consul site playbook
+
+- name: Assemble Nomad cluster
+  hosts: nomad_instances
+  vars_files:
+    - secrets/ca.yml
+    - secrets/consul_secrets.yml
+    - secrets/nomad_secrets.yml
+
+  any_errors_fatal: true
+  become: yes
+
+  pre_tasks:
+    - import_tasks: tasks/nomad/nomad_user_group.yml
+
+    - import_tasks: tasks/nomad/nomad_ufw_rules.yml
+
+    - import_tasks: tasks/nomad/nomad_certs.yml
+
+    - import_tasks: tasks/nomad/nomad_env_vars.yml
+
+  roles:
+    - role: brianshumate.nomad

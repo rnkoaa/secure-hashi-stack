@@ -1,0 +1,15 @@
+---
+- hosts: all
+  vars_files:
+    - secrets/consul_secrets.yml
+  tasks:
+    - name: "Ensure tmp folder is present"
+      file:
+        name: /tmp
+        state: directory
+
+    - name: "place consul cert file on servers"
+      copy:
+        dest: /tmp/consul_cli_client_cert.pem
+        content: "{{ consul_cli_client_cert }}"
+      no_log: false

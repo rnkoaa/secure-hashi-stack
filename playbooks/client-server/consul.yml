@@ -1,0 +1,25 @@
+---
+# File: consul.yml - Example Consul site playbook
+
+- name: Assemble Consul cluster
+  hosts: consul_instances
+  vars_files:
+    - secrets/ca.yml
+    - secrets/consul_secrets.yml
+  vars:
+    - consul_ssl_dir: /etc/ssl/consul
+
+  any_errors_fatal: true
+  become: yes
+
+  pre_tasks:
+    - import_tasks: tasks/consul/consul_user_group.yml
+
+    - import_tasks: tasks/consul/consul_ufw_rules.yml
+
+    - import_tasks: tasks/consul/consul_certs.yml
+
+    - import_tasks: tasks/consul/consul_env_vars.yml
+
+  roles:
+    - role: brianshumate.consul

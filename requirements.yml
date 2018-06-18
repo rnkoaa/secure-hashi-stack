@@ -12,4 +12,5 @@
 - name: brianshumate.nomad
   src: git+https://github.com/rnkoaa/ansible-nomad.git
 
-
+- name: geerlingguy.ntp
+  src: git+https://github.com/geerlingguy/ansible-role-ntp.git

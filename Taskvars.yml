@@ -1,5 +1,6 @@
 PROJECT_NAME: hashi-stack
-ENVIRONMENT: vagrant
+# ENVIRONMENT: vagrant
+ENVIRONMENT: client-server
 PLAYBOOKS: playbooks
 INVENTORY:  "inventories/{{.ENVIRONMENT}}"
 DEV_MODE: vagrant

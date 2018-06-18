@@ -5,6 +5,7 @@ roles/ansible-hashi-base
 roles/brianshumate.consul
 roles/brianshumate.vault
 roles/brianshumate.nomad
+roles/geerlingguy.ntp
 
 **/node_modules/
 **/dist/

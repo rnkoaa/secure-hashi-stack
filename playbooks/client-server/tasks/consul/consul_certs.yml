@@ -1,0 +1,153 @@
+---
+# File: consul_certs.yml - copy and generate consul certs for tls/ssl
+- name: "Ensure consul ssl folder is present"
+  file:
+    name: "{{ consul_tls_dir }}"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+  become: yes
+
+- name: "place consul cert file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/intermediate_ca_key.pem"
+    content: "{{ intermediate_ca_key }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place consul bundled ca cert file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/cacert.pem"
+    content: "{{ bundle_ca }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place consul cert key file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/consul_server_cert_key.pem"
+    content: "{{ consul_server_cert_key }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place consul server cert file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/consul_server_cert.pem"
+    content: "{{ consul_server_cert }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+### place the consul cli client certs
+- name: "Ensure consul cli client ssl folder is present"
+  file:
+    name: "{{ consul_tls_dir }}/clients/cli"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+  become: yes
+
+- name: "place consul cert key file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/clients/cli/consul-cli-client-cert.pem"
+    content: "{{ consul_cli_client_cert }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place consul server cert file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/clients/cli/consul-cli-client-cert-key.pem"
+    content: "{{ consul_cli_client_cert_key }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+### place the consul client certs
+- name: "Ensure consul cli client ssl folder is present"
+  file:
+    name: "{{ consul_tls_dir }}/clients/consul"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+  become: yes
+
+- name: "place consul cert key file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/clients/consul/consul_client_cert.pem"
+    content: "{{ consul_client_cert }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place consul server cert file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/clients/consul/consul_client_cert_key.pem"
+    content: "{{ consul_client_cert_key }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+### place the consul vault client certs
+- name: "Ensure consul cli client ssl folder is present"
+  file:
+    name: "{{ consul_tls_dir }}/clients/vault"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+  become: yes
+
+- name: "place consul cert key file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/clients/vault/consul_vault_client_cert.pem"
+    content: "{{ consul_vault_client_cert }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place consul server cert file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/clients/vault/consul_vault_client_cert_key.pem"
+    content: "{{ consul_vault_client_cert_key }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+### place the consul nomad client certs
+- name: "Ensure consul cli client ssl folder is present"
+  file:
+    name: "{{ consul_tls_dir }}/clients/nomad"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+  become: yes
+
+- name: "place consul cert key file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/clients/nomad/consul_nomad_client_cert.pem"
+    content: "{{ consul_nomad_client_cert }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false
+
+- name: "place consul server cert file on servers"
+  copy:
+    dest: "{{ consul_tls_dir }}/clients/nomad/consul_nomad_client_cert_key.pem"
+    content: "{{ consul_nomad_client_cert_key }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0644
+  no_log: false

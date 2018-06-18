@@ -1,0 +1,60 @@
+---
+# nomad_advertise_addr:      "{{ hostvars[inventory_hostname].nomad_advertise_address }}"
+nomad_nomad_server:                 "{{ inventory_hostname_short }}.alpha.consul:8500"
+nomad_datacenter:                   alpha
+nomad_region:                       global
+nomad_iface:                        eth1
+nomad_network_interface:            eth1
+nomad_client_network_interface:     "eth1"
+nomad_bind_address:                 "0.0.0.0"
+nomad_group_name:                   nomad_instances
+nomad_advertise_addr:               "{{ inventory_hostname_short }}.alpha.consul"
+nomad_manage_user:                  no
+nomad_manage_group:                 no
+nomad_user:                         nomad
+nomad_group:                        nomad
+nomad_docker_enable:                false
+# put this key in ansible-vault and lookup
+nomad_raw_key:                      ""
+nomad_bootstrap_expect:             3
+nomad_version:                      0.8.3
+
+# allow for external ui access
+nomad_client_address:               0.0.0.0
+nomad_syslog_enable:                false
+nomad_node_name:                    "{{ inventory_hostname_short }}"
+validate_certs:                     false
+ansible_python_interpreter:         /usr/bin/python3
+
+# tls config
+nomad_tls_enable:                   true
+nomad_dnsmasq_enable:               true
+nomad_tls_verify_incoming:          true
+nomad_tls_verify_outgoing:          true
+
+# using common tls cert. Each server does not have its own cert
+nomad_tls_verify_server_hostname:   false
+nomad_tls_dir:                      /etc/ssl/nomad
+nomad_tls_ca_crt:                   cacert.pem
+
+# define the name of the cert to give to ansible
+nomad_tls_server_crt:               "{{ inventory_hostname_short }}-nomad-server.pem"
+nomad_server_key:                   "{{ inventory_hostname_short }}-nomad-server-key.pem"
+
+nomad_tls_copy_keys:                false
+nomad_ports_http:                   4646
+nomad_ports_rpc:                    4647
+nomad_ports_serf:                   4648
+
+nomad_config_custom:
+  consul:
+    address:                        "{{ inventory_hostname_short }}.alpha.consul:8500"
+    ssl       :                     true
+    ca_file   :                     "{{ nomad_tls_dir }}/cacert.pem"
+    cert_file :                     "{{ nomad_tls_dir }}/consul-nomad-client-cert.pem"
+    key_file  :                     "{{ nomad_tls_dir }}/consul-nomad-client-cert-key.pem"
+    server_service_name:            nomad
+    client_service_name:            nomad-client
+    auto_advertise      :           true
+    server_auto_join    :           true
+    client_auto_join    :           true

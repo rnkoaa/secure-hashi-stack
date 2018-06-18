@@ -1,0 +1,47 @@
+- name: ensure file exists
+  copy:
+    content: ""
+    dest: /home/vagrant/.zsh_profile
+    force: no
+    group: vagrant
+    owner: vagrant
+    mode: 0777
+
+- lineinfile:
+    path: /home/vagrant/.zsh_profile
+    regexp: '^export NOMAD_ADDR='
+    line: 'export NOMAD_ADDR=https://{{ inventory_hostname_short }}.alpha.consul:4646'
+
+# - lineinfile:
+#     path: /home/vagrant/.zsh_profile
+#     regexp: '^export CONSUL_HTTP_ADDR='
+#     line: "export CONSUL_HTTP_ADDR={{ inventory_hostname_short }}.alpha.consul:8500"
+    
+- lineinfile:
+    path: /home/vagrant/.zsh_profile
+    regexp: '^export NOMAD_CACERT='
+    line: 'export NOMAD_CACERT=/etc/ssl/nomad/cacert.pem'
+
+- lineinfile:
+    path: /home/vagrant/.zsh_profile
+    regexp: '^export NOMAD_CLIENT_CERT='
+    line: 'export NOMAD_CLIENT_CERT=/etc/ssl/nomad/clients/cli/nomad-cli-client-cert.pem'
+
+- lineinfile:
+    path: /home/vagrant/.zsh_profile
+    regexp: '^export NOMAD_CLIENT_KEY='
+    line: 'export NOMAD_CLIENT_KEY=/etc/ssl/nomad/clients/cli/nomad-cli-client-cert-key.pem'
+
+  # command: echo "export VAULT_ADDR=https://vagrant-hashi-stack-1.alpha.consul:8200
+  #           export NOMAD_ADDR=https://vagrant-hashi-stack-1.alpha.consul:4646
+  #           function nas() {
+  #               if [ -n "$1" ]
+  #               then
+  #                   nomad alloc-status $1
+  #               fi
+  #           }" 
+
+- lineinfile:
+    path: /home/vagrant/.zshrc
+    regexp: '^source /home/vagrant/.zsh_profile'
+    line: 'source /home/vagrant/.zsh_profile'

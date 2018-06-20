@@ -1,0 +1,37 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - ../../inventories/vagrant/group_vars/all.yml
+  roles:
+    - role: rnkoaa.base
+
+- name: Build Consul cluster
+  hosts: "{{ m_host | default('consul_instances') }}"
+  any_errors_fatal: true
+  become: yes
+  become_user: root
+  vars_files:
+    - ../../inventories/vagrant/group_vars/consul_instances.yml
+  roles:
+    - role: rnkoaa.consul
+
+- name: Build Vault cluster
+  hosts: "{{ m_host | default('vault_instances') }}"
+  any_errors_fatal: true
+  become: yes
+  become_user: root
+  vars_files:
+    - ../../inventories/vagrant/group_vars/vault_instances.yml
+  roles:
+    - role: rnkoaa.vault
+
+- name: Assemble Vault cluster
+  hosts: "{{ m_host | default('nomad_instances') }}"
+  any_errors_fatal: true
+  become: yes
+  become_user: root
+  vars_files:
+    - ../../inventories/vagrant/group_vars/nomad_instances.yml
+  roles:
+- role: rnkoaa.nomad

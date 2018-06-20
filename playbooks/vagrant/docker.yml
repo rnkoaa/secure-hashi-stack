@@ -1,0 +1,34 @@
+---
+# File: site.yml - Example Nomad site playbook
+
+- name: Assemble Vault cluster
+  # hosts: hashi-stack-1
+  hosts: "{{ m_host | default('all') }}"
+  any_errors_fatal: true
+  become: yes
+  become_user: root
+  vars:
+    docker_group_members: ["vagrant", "docker"]
+    daemon_json:
+      ip: "0.0.0.0"
+      hosts:
+        - "unix:///var/run/docker.sock"
+        - "tcp://0.0.0.0:2376"
+        - "tcp://0.0.0.0:2375"
+      dns:
+        - "8.8.8.8"
+        - "172.17.0.1"
+        - "8.8.4.4"
+      log-level: debug
+      log-driver: json-file
+      log-opts:
+        max-file: "3"
+        max-size: "10m"
+  roles:
+    - role: rnkoaa.docker
+
+  # tasks:
+  #   - name: Create a hashi-stack network
+  #     docker_network:
+  #       name: "{{ hashi_stack_network_name }}"
+  #     state: present

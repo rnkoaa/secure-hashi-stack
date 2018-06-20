@@ -1,0 +1,36 @@
+ansible -i hosts consul_instances -m service -a "name=consul state=reloaded" --become
+ansible -i hosts consul_instances -m service -a "name=consul state=restarted" --become
+ansible -i hosts all -m service -a "name=nomad state=restarted" --become
+ansible -i hosts all -m service -a "name=nomad state=reloaded" --become
+ansible -i hosts all -m systemd -a "daemon_reload=yes" --become
+
+docker run --rm -it \
+-e NOMAD_ENABLE=1 \
+-e NOMAD_ADDR=http://192.168.33.10:4646 \
+-e CONSUL_ENABLE=1 \
+-e CONSUL_ADDR=http://192.168.33.10:8500 \
+-p 8000:3000 jippi/hashi-ui
+
+ansible -i inventories/vagrant/hosts all -m shell -a "free"
+
+1. vagrant up
+2. make ansible-test
+3. ansible-galaxy install -r requirements.yml --force
+4. make base
+5. make install-docker
+6. make hashi-stack
+7. make copy-nomad-jobs
+
+## Create Jobs using nomad
+----------------------------------------------
+1. cd /nomad/jobs/
+2.  nomad plan student-service.nomad
+3.  nomad run -check-index 0 student-service.nomad
+4.  nomad plan school-service.nomad
+5.  nomad run -check-index 0 school-service.nomad
+6.  nomad plan fabio.nomad
+7.  nomad run -check-index 0 fabio.nomad
+8.  nomad plan fabio.nomad
+9.  nomad run -check-index 108 fabio.nomad
+10. nomad plan mango-ui.nomad
+11. nomad run -check-index 0 mango-ui.nomad

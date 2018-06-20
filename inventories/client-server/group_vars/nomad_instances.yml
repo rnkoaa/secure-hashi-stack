@@ -16,7 +16,7 @@ nomad_group:                        nomad
 nomad_docker_enable:                false
 # put this key in ansible-vault and lookup
 nomad_raw_key:                      ""
-nomad_bootstrap_expect:             3
+# nomad_bootstrap_expect:             3
 nomad_version:                      0.8.3
 
 # allow for external ui access

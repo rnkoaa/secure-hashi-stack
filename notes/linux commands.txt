@@ -1,0 +1,12 @@
+inside the container:
+ip route show | awk '/default/ {print $3}'
+route | awk '/^default/ { print $2 }'
+
+This gives the default docker0 bride to the host and can be used to communicate to the host
+
+route | awk '/^default/ { print $2 }'
+
+vagrant ubuntu stretch (with network ip) get ip address on eth1
+ip addr show eth1 | grep "inet " | cut -d: -f2 | awk '{print $2}'
+
+osx
